@@ -1,0 +1,77 @@
+$transitiontimestd: 0.6s;
+
+.Carousel {
+  display: grid;
+  overflow: hidden;
+}
+.Carousel-Item {
+  visibility: hidden;
+  grid-area: 1/ 1;
+  cursor: grab;
+  user-select: none;
+  &:active {
+    cursor: grabbing;
+  }
+}
+.Active {
+  visibility: visible;
+}
+
+.Slide {
+  &-enter {
+    transform: translateX(-100%);
+    order: -1;
+    &.Forward {
+      //transitions from right to left
+      order: 1;
+      transform: translateX(100%);
+    }
+    &-active {
+      transform: translateX(0%);
+      transition: transform $transitiontimestd;
+      order: -1;
+      &.Forward {
+        transform: translateX(0%);
+        transition: transform $transitiontimestd;
+        order: 1;
+      }
+    }
+  }
+
+  &-exit {
+    transform: translateX(0%);
+    visibility: visible;
+    &.Forward {
+      order: -1;
+    }
+    &-active {
+      visibility: visible;
+      transform: translateX(100%);
+      transition: transform $transitiontimestd;
+      &.Forward {
+        transform: translateX(-100%);
+        transition: transform $transitiontimestd;
+        order: -1;
+      }
+    }
+  }
+}
+
+.Fade {
+  &-enter {
+    opacity: 0;
+    &-active {
+      opacity: 1;
+      transition: opacity calc($transitiontimestd / 2) $transitiontimestd
+        ease-in;
+    }
+  }
+  &-exit {
+    visibility: visible;
+    opacity: 1;
+    &-active {
+      opacity: 0;
+      transition: opacity $transitiontimestd ease-in;
+    }
+  }
+}

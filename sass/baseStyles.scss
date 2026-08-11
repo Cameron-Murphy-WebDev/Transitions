@@ -1,0 +1,43 @@
+@use './color' as *;
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+
+$transitionTime: 0.3s;
+
+body {
+  background-color: $backgroundDark;
+  color: $font-light;
+}
+
+body,
+a {
+  font-family: 'JetBrains Mono', monospace;
+  text-decoration: none;
+}
+
+a {
+  color: inherit;
+}
+
+li {
+  display: flex;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  transition: background-color $transitionTime;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  transition: color $transitionTime;
+}

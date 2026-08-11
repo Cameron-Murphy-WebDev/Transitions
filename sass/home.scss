@@ -1,0 +1,9 @@
+@import '../sass/color.scss';
+
+.Home {
+  .LinkText {
+    &:hover {
+      color: $accentg;
+    }
+  }
+}

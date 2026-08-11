@@ -1,0 +1,41 @@
+@use '../../../sass/color' as *;
+
+.Header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  background-color: $accent3;
+
+  .Header-Logo {
+    color: $font-light;
+    font-weight: 700;
+  }
+
+  .Header-Nav {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $font-light;
+
+      &:hover,
+      &.Active {
+        color: $cyan;
+      }
+    }
+  }
+
+  .Header-Toggle {
+    margin-left: auto;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background-color: $accent2;
+    color: $white;
+
+    &:hover {
+      background-color: $cyan;
+      color: $font-dark;
+    }
+  }
+}
