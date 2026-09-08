@@ -1,78 +1,93 @@
 import React from 'react';
+// The palette itself, as text. Parsing it means every variable shows up here
+// automatically — add one to color.scss and it appears, with no list to update.
+import colorSource from '../sass/color.scss?raw';
+import Monogram from '@shared/images/Monogram.svg?react';
 import './ColorPreview.scss';
 
-const groups = [
-  {
-    name: 'toolbar',
-    swatches: [
-      ['toolbar.activeBackground', '#2c324a'],
-      ['toolbar.hoverBackground', '#2c324a'],
-    ],
-  },
-  {
-    name: 'extensionButton / extensionBadge',
-    swatches: [
-      ['extensionButton.prominentBackground', '#3d59a1dd'],
-      ['extensionButton.prominentHoverBackground', '#3d59a1aa'],
-      ['extensionButton.prominentForeground', '#ffffff'],
-      ['extensionBadge.remoteBackground', '#3d59a1'],
-      ['extensionBadge.remoteForeground', '#ffffff'],
-    ],
-  },
-  {
-    name: 'button / progressBar',
-    swatches: [
-      ['button.background', '#3d59a1dd'],
-      ['button.hoverBackground', '#3d59a1aa'],
-      ['button.secondaryBackground', '#41496b'],
-      ['button.foreground', '#ffffff'],
-      ['progressBar.background', '#3d59a1'],
-    ],
-  },
-  {
-    name: 'input / inputOption',
-    swatches: [
-      ['input.background', '#1b1e2e'],
-      ['input.foreground', '#a9b1d6'],
-      ['input.border', '#282e44'],
-      ['input.placeholderForeground', '#4a5272'],
-      ['inputOption.activeForeground', '#c0caf5'],
-      ['inputOption.activeBackground', '#3d59a144'],
-    ],
-  },
-  {
-    name: 'inputValidation',
-    swatches: [
-      ['inputValidation.infoForeground', '#bbc2e0'],
-      ['inputValidation.infoBackground', '#3d59a15c'],
-      ['inputValidation.infoBorder', '#3d59a1'],
-      ['inputValidation.warningForeground', '#000000'],
-      ['inputValidation.warningBackground', '#c2985b'],
-      ['inputValidation.warningBorder', '#e0af68'],
-      ['inputValidation.errorForeground', '#bbc2e0'],
-      ['inputValidation.errorBackground', '#85353e'],
-      ['inputValidation.errorBorder', '#963c47'],
-    ],
-  },
+// `$name: #hex;` or `$name: $other-variable;`
+const DECLARATION = /^\s*\$([\w-]+)\s*:\s*([^;]+);/;
+
+// color.scss separates its blocks with blank lines, so the file's own grouping
+// becomes the grouping on the page.
+const GROUP_NAMES = ['Base colors', 'Brights', 'Roles'];
+
+// Every swatch repeats its name once per text colour, labelled with the variable
+// painting it, so all four foregrounds can be judged against each background.
+const TEXT_TONES = [
+  { variable: '$font-light', className: 'Light' },
+  { variable: '$near-black', className: 'Dark' },
+  { variable: '$light-lavender', className: 'Lavender' },
+  { variable: '$white', className: 'White' },
 ];
+
+function readPalette(source) {
+  const resolved = new Map();
+  const blocks = [[]];
+
+  source.split('\n').forEach((line) => {
+    if (!line.trim()) {
+      // Only start a new block once the current one has something in it, so
+      // repeated blank lines don't create empty groups.
+      if (blocks[blocks.length - 1].length) blocks.push([]);
+      return;
+    }
+
+    const match = line.match(DECLARATION);
+    if (!match) return;
+
+    const [, name, rawValue] = match;
+    const value = rawValue.trim();
+    // Roles point at an earlier variable; follow it to the hex it lands on.
+    const hex = value.startsWith('$') ? resolved.get(value.slice(1)) : value;
+    if (!hex) return;
+
+    resolved.set(name, hex);
+    blocks[blocks.length - 1].push({ name, hex });
+  });
+
+  return blocks
+    .filter((block) => block.length)
+    .map((swatches, index) => ({
+      name: GROUP_NAMES[index] ?? `Group ${index + 1}`,
+      swatches,
+    }));
+}
+
+const groups = readPalette(colorSource);
 
 export default function ColorPreview() {
   return (
     <div className='ColorPreview'>
       <h1>Color Preview</h1>
+
+      <h2 className='ColorPreview-GroupTitle'>Monogram</h2>
+      <div className='ColorPreview-Svg'>
+        <Monogram className='Large' />
+        <Monogram className='Small' />
+        <div className='ColorPreview-SvgOnLight'>
+          <Monogram className='Small' />
+        </div>
+      </div>
+
       {groups.map((group) => (
         <React.Fragment key={group.name}>
           <h2 className='ColorPreview-GroupTitle'>{group.name}</h2>
           <div className='ColorPreview-Grid'>
-            {group.swatches.map(([name, hex]) => (
-              <div className='ColorPreview-Swatch' key={name}>
-                <div className='ColorPreview-Chip'>
-                  <span style={{ background: hex }} />
-                </div>
-                <div className='ColorPreview-Meta'>
-                  <span className='ColorPreview-Name'>{name}</span>
-                  <span className='ColorPreview-Hex'>{hex}</span>
-                </div>
+            {group.swatches.map(({ name, hex }) => (
+              <div
+                className='ColorPreview-Swatch'
+                style={{ background: hex }}
+                key={name}
+              >
+                {TEXT_TONES.map((tone) => (
+                  <span
+                    className={`ColorPreview-Name ${tone.className}`}
+                    key={tone.variable}
+                  >
+                    ${name} (in {tone.variable})
+                  </span>
+                ))}
               </div>
             ))}
           </div>

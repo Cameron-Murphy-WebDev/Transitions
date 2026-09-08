@@ -10,9 +10,13 @@ const root = dirname(fileURLToPath(import.meta.url))
 // Folders that never hold a page.
 const IGNORE = new Set(['node_modules', 'shared', 'dist', 'sass'])
 
+// Folders that group pages rather than being one. Each is scanned a level down,
+// and the folder itself holds no index.html.
+const GROUPS = ['demos', 'css']
+
 // A page is any folder holding an index.html — at the root (colors/) or one
-// level inside demos/. Read once at startup — restart the dev server after
-// adding a new folder.
+// level inside a group folder. Read once at startup — restart the dev server
+// after adding a new folder.
 function pagesIn(dir, prefix = '') {
   return readdirSync(resolve(root, dir), { withFileTypes: true })
     .filter((e) => e.isDirectory() && !e.name.startsWith('.') && !IGNORE.has(e.name))
@@ -20,7 +24,10 @@ function pagesIn(dir, prefix = '') {
     .filter((p) => existsSync(resolve(root, p, 'index.html')))
 }
 
-const pages = [...pagesIn('.'), ...pagesIn('demos', 'demos/')]
+const pages = [
+  ...pagesIn('.'),
+  ...GROUPS.flatMap((group) => pagesIn(group, `${group}/`)),
+]
 
 export default defineConfig({
   plugins: [react(), svgr()],

@@ -1,0 +1,24 @@
+import React, { useState, useMemo, useRef, useEffect } from 'react';
+
+export default function Carousel({
+  className,
+  threshold,
+  transClass,
+  items,
+  requested,
+  onChange,
+}) {
+
+useEffect(() => {
+  requested !== active && changeItem(requested);
+}, [requested]);
+
+function changeItem(index) {
+  setActive(newActive);
+  onChange(newActive);
+}
+
+Carousel.propTypes = {
+  requested: PropTypes.number,
+  onChange: PropTypes.func,
+};

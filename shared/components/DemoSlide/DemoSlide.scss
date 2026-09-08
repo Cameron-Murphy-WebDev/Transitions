@@ -1,0 +1,54 @@
+@use '../../../sass/variables' as *;
+
+.DemoSlide {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+
+  p {
+    margin: 0;
+  }
+
+  // flex: 1 makes the head absorb the leftover height, which pins the two rows
+  // below it to the bottom of the slide. Every item shares one grid cell, so a
+  // short slide is still as tall as the longest one — without this its rows
+  // would ride up under the copy instead of holding the same bottom margin.
+  .DemoSlide-Head {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  // flex: 0 0 auto so the copy wrapping never squashes the mark out of square.
+  .DemoSlide-Mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+  }
+
+  .DemoSlide-Row {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background-color: rgba($black, 0.15);
+
+    strong {
+      font-weight: $weight-bold;
+    }
+  }
+
+  // Every slide is toned, so the track colour only shows mid-transition.
+  &.Blue {
+    background-color: $accentbl;
+  }
+
+  &.Red {
+    background-color: $accentrl;
+    color: $font-light;
+  }
+
+  &.Gold {
+    background-color: $accenty;
+  }
+}

@@ -1,0 +1,19 @@
+// Type scale. Named by the job rather than by size, so a page asks for body
+// copy and gets whatever body copy currently is.
+//
+// The @import that loads JetBrains Mono lives in baseStyles.scss, not here — a
+// CSS @import has to be the first rule in the stylesheet the browser receives,
+// and this file is pulled into component styles that get bundled anywhere.
+$font-mono: 'JetBrains Mono', monospace;
+
+$font-label: 0.75rem; // panel captions and figcaptions
+$font-code: 0.8rem; // source panels
+$font-body: 0.85rem; // prose in notes and diagrams
+$font-lead: 0.9rem; // section headings inside a page
+$font-logo: 2rem; // the header wordmark
+
+$weight-normal: 400;
+$weight-bold: 700;
+
+// Prose only. Anything set at one or two lines keeps the browser default.
+$line-body: 1.6;

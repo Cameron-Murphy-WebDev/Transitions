@@ -1,15 +1,16 @@
-@use '../../../sass/color' as *;
+@use '../../../sass/variables' as *;
 
 .Header {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   padding: 1rem 1.5rem;
-  background-color: $accent3;
+  background-color: $backgroundLight;
 
   .Header-Logo {
-    color: $font-light;
-    font-weight: 700;
+    color: $near-black;
+    font-size: $font-logo;
+    font-weight: $weight-bold;
   }
 
   .Header-Nav {
@@ -21,21 +22,8 @@
 
       &:hover,
       &.Active {
-        color: $cyan;
+        color: $orange;
       }
-    }
-  }
-
-  .Header-Toggle {
-    margin-left: auto;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    background-color: $accent2;
-    color: $white;
-
-    &:hover {
-      background-color: $cyan;
-      color: $font-dark;
     }
   }
 }

@@ -1,4 +1,4 @@
-$transitiontimestd: 0.6s;
+$transitionTime: var(--transTime);
 
 .Carousel {
   display: grid;
@@ -17,6 +17,7 @@ $transitiontimestd: 0.6s;
   visibility: visible;
 }
 
+// #region slide
 .Slide {
   &-enter {
     transform: translateX(-100%);
@@ -28,11 +29,11 @@ $transitiontimestd: 0.6s;
     }
     &-active {
       transform: translateX(0%);
-      transition: transform $transitiontimestd;
+      transition: transform $transitionTime;
       order: -1;
       &.Forward {
         transform: translateX(0%);
-        transition: transform $transitiontimestd;
+        transition: transform $transitionTime;
         order: 1;
       }
     }
@@ -47,23 +48,24 @@ $transitiontimestd: 0.6s;
     &-active {
       visibility: visible;
       transform: translateX(100%);
-      transition: transform $transitiontimestd;
+      transition: transform $transitionTime;
       &.Forward {
         transform: translateX(-100%);
-        transition: transform $transitiontimestd;
+        transition: transform $transitionTime;
         order: -1;
       }
     }
   }
 }
+// #endregion slide
 
+// #region fade
 .Fade {
   &-enter {
     opacity: 0;
     &-active {
       opacity: 1;
-      transition: opacity calc($transitiontimestd / 2) $transitiontimestd
-        ease-in;
+      transition: opacity calc($transitionTime / 2) $transitionTime ease-in;
     }
   }
   &-exit {
@@ -71,7 +73,8 @@ $transitiontimestd: 0.6s;
     opacity: 1;
     &-active {
       opacity: 0;
-      transition: opacity $transitiontimestd ease-in;
+      transition: opacity $transitionTime ease-in;
     }
   }
 }
+// #endregion fade

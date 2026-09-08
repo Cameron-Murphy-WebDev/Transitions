@@ -1,70 +1,83 @@
-@use '../sass/color' as *;
+@use '../sass/variables' as *;
 
 .ColorPreview {
   padding: 1.5rem;
 
   .ColorPreview-GroupTitle {
     margin: 2rem 0 0.75rem;
-    color: $wild-blue-yonder;
-    font-size: 0.9rem;
-    font-weight: 400;
+    color: $blue-grey;
+    font-size: $font-lead;
+    font-weight: $weight-normal;
+  }
+
+  // Scratch box for in-progress SVG: shown large to judge the shape, at icon
+  // size to check it survives the shrink, and once on a light ground since the
+  // page itself is dark.
+  .ColorPreview-Svg {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba($slate, 0.4);
+    border-radius: 8px;
+    color: $font-light;
+
+    .Large {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+
+    .Small {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .ColorPreview-SvgOnLight {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: $light-lavender;
+    color: $near-black;
   }
 
   .ColorPreview-Grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
     gap: 0.75rem;
   }
 
+  // The colour is the box: it comes in as an inline background from the parsed
+  // palette, and the padding insets the labels sitting on top of it.
   .ColorPreview-Swatch {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.625rem;
-    border: 1px solid rgba($comet, 0.4);
-    border-radius: 8px;
-    background-color: rgba($comet, 0.12);
-  }
-
-  // Checkerboard reads through the chip so alpha values (#3d59a1dd) are visible
-  // as partly transparent instead of looking like flat colors.
-  .ColorPreview-Chip {
-    position: relative;
-    flex: 0 0 auto;
-    width: 3rem;
-    height: 3rem;
-    overflow: hidden;
-    border-radius: 6px;
-    background-image: repeating-conic-gradient(
-      rgba($white, 0.1) 0% 25%,
-      transparent 0% 50%
-    );
-    background-size: 0.75rem 0.75rem;
-
-    span {
-      position: absolute;
-      inset: 0;
-      display: block;
-      box-shadow: inset 0 0 0 1px rgba($white, 0.15);
-    }
-  }
-
-  .ColorPreview-Meta {
-    display: flex;
-    min-width: 0;
     flex-direction: column;
     gap: 0.25rem;
+    padding: 0.625rem;
+    border: 1px solid rgba($slate, 0.4);
+    border-radius: 8px;
   }
 
+  // One class per entry in TEXT_TONES — the label names the variable colouring
+  // it, so the two have to stay in step.
   .ColorPreview-Name {
     overflow-wrap: anywhere;
-    color: $font-light;
-    font-size: 0.8rem;
-  }
+    font-size: $font-code;
 
-  .ColorPreview-Hex {
-    color: $wild-blue-yonder;
-    font-size: 0.75rem;
-    text-transform: uppercase;
+    &.Light {
+      color: $font-light;
+    }
+
+    &.Dark {
+      color: $near-black;
+    }
+
+    &.Lavender {
+      color: $light-lavender;
+    }
+
+    &.White {
+      color: $white;
+    }
   }
 }

@@ -1,0 +1,23 @@
+.DemoPage {
+  display: grid;
+  align-items: start;
+  padding: 0 1.5rem;
+  gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+
+  // Placement helpers for whatever a demo puts in the grid. Scoped to .DemoPage
+  // so the bare names can't collide with anything a component defines.
+  .Half {
+    grid-column: span 1;
+  }
+
+  .Full {
+    grid-column: 1 / -1;
+  }
+
+  // One column below the breakpoint, and the helpers stop meaning anything —
+  // `span 1` is already the whole row and `1 / -1` still resolves to it.
+  @media (max-width: 60rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -1,7 +1,31 @@
-@import '../sass/color.scss';
+@use './variables' as *;
 
+// One accent for anything interactive — $accentg — so a link reads the same
+// wherever it appears. The rest of the page sits in the blue-violet range,
+// which is what leaves the warm tones free to mean "this responds to you".
 .Home {
+  // The heading and its list are one block, so the row gap is tightened to hold
+  // them together and the space that separates that block from the header is
+  // put on the heading itself.
+  row-gap: 0.5rem;
+
+  h1 {
+    color: $light-lavender;
+  }
+
+  > h2 {
+    margin: 3rem 0 0;
+    color: $accentg;
+    font-weight: $weight-normal;
+  }
+
+  > ul {
+    margin: 0;
+  }
+
   .LinkText {
+    color: $lavender;
+
     &:hover {
       color: $accentg;
     }

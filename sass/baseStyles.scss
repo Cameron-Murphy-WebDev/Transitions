@@ -1,4 +1,4 @@
-@use './color' as *;
+@use './variables' as *;
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
 
 $transitionTime: 0.3s;
@@ -10,7 +10,7 @@ body {
 
 body,
 a {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: $font-mono;
   text-decoration: none;
 }
 

@@ -4,15 +4,15 @@ import { useDragItem } from '@shared/hooks/useDragItem';
 import PropTypes from 'prop-types';
 import './Carousel.scss';
 
-const timeOut = 600;
-
 export default function Carousel({
   className,
   threshold,
   transClass,
   items,
   ButtonIcon,
+  transTime,
 }) {
+  // #region state
   const contentCount = items.length - 1;
   const refs = useMemo(() => items.map(() => ({ current: null })), [items]);
   const [forward, setForward] = useState(null);
@@ -20,6 +20,7 @@ export default function Carousel({
   const [transitioning, setTransitioning] = useState(false); //so buttons aren't spammable
   const drag = useDragItem(threshold);
   const dragDisabled = useRef(false);
+  // #endregion state
 
   const dragHandler = (event) => {
     event.type === 'mousedown' && (dragDisabled.current = false);
@@ -29,6 +30,7 @@ export default function Carousel({
     changed && changeItem(active - changed);
   };
 
+  // #region changing items
   function changeItem(index) {
     if (transitioning) return;
     setTransitioning(true);
@@ -42,18 +44,19 @@ export default function Carousel({
     setForward(index > active);
     setActive(newActive);
   }
+  // #endregion changing items
 
   return (
     <div className={`Carousel-Container ${className}`}>
+      {/* #region carousel */}
       <div className='Carousel'>
         {items.map((item, index) => {
           return (
             <CSSTransition
               classNames={transClass}
-              timeout={timeOut}
+              timeout={transTime}
               in={active === index}
               onEntered={() => setTransitioning(false)}
-              // eslint-disable-next-line security/detect-object-injection
               nodeRef={refs[index]}
               key={index}
               onTouchStart={dragHandler}
@@ -65,8 +68,10 @@ export default function Carousel({
               onMouseLeave={dragHandler}
             >
               <div
-                className={`Carousel-Item ${forward ? 'Forward' : ''} ${active === index ? ' Active' : ''}`}
-                // eslint-disable-next-line security/detect-object-injection
+                className={`Carousel-Item ${forward ? 'Forward' : ''} ${
+                  active === index ? 'Active' : ''
+                }`}
+                style={{ '--transTime': `${transTime}ms` }}
                 ref={refs[index]}
               >
                 {item}
@@ -75,6 +80,7 @@ export default function Carousel({
           );
         })}
       </div>
+      {/* #endregion carousel */}
       {items?.length > 1 && (
         <div className='Navigation'>
           <div className='Navigation-Bar'>
@@ -122,4 +128,5 @@ Carousel.propTypes = {
   transClass: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.element),
   ButtonIcon: PropTypes.elementType,
+  transTime: PropTypes.number,
 };

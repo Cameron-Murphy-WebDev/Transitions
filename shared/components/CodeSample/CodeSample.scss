@@ -1,0 +1,40 @@
+@use '../../../sass/variables' as *;
+
+.CodeSample {
+  overflow: hidden;
+  min-width: 0;
+  margin: 0;
+  border: 1px solid rgba($slate, 0.4);
+  border-radius: 8px;
+  background-color: $near-black;
+
+  .CodeSample-Label {
+    padding: 0.5rem 0.875rem;
+    border-bottom: 1px solid rgba($slate, 0.4);
+    background-color: rgba($slate, 0.15);
+    color: $blue-grey;
+    font-size: $font-label;
+  }
+
+  // Shiki returns a whole <pre>, so it arrives wrapped in a div the caption can
+  // sit beside. display: contents drops that div out of the box tree and leaves
+  // the pre as the figure's own child, styled by the rules below either way.
+  .CodeSample-Body {
+    display: contents;
+  }
+
+  .CodeSample-Pre {
+    // Both axes scroll here rather than stretching the page: long lines stay
+    // unwrapped so the code reads the way it does in the editor.
+    margin: 0;
+    padding: 0.875rem;
+    tab-size: 2;
+  }
+
+  .CodeSample-Code {
+    color: $font-light;
+    font-family: $font-mono;
+    font-size: $font-code;
+    line-height: 1.6;
+  }
+}

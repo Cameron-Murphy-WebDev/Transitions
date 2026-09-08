@@ -1,0 +1,17 @@
+@use '../../sass/variables' as *;
+
+a:hover {
+  color: $white;
+}
+
+.Anchor {
+  anchor-name: --exampleAnchor;
+}
+
+.Target {
+  display: none;
+  border: 2px solid $light-lavender;
+  position: absolute;
+  position-anchor: --exampleAnchor;
+  position-area: top right;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Wrapper from '@shared/components/Wrapper';
-import CardDemo from './Card';
+import CarouselDemo from './CarouselDemo';
 
 createRoot(document.getElementById('root')).render(
   <Wrapper>
-    <CardDemo />
+    <CarouselDemo />
   </Wrapper>,
 );
