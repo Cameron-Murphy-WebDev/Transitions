@@ -1,0 +1,114 @@
+@use '@sass/variables' as *;
+
+.Diagrams {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  @media (max-width: 60rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.Diagram {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0.875rem;
+  border: 1px solid rgba($slate, 0.4);
+  border-radius: 8px;
+  gap: 0.75rem;
+
+  figcaption {
+    color: $blue-grey;
+    font-size: $font-label;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  p {
+    margin: 0;
+    color: $font-light;
+    font-size: $font-body;
+    line-height: $line-body;
+  }
+
+  code {
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    background-color: rgba($slate, 0.35);
+    color: $light-lavender;
+  }
+}
+
+// The container each diagram is drawn in — no fill, so the page background
+// shows through and the two read as regions rather than as panels.
+.Diagram-Outer {
+  fill: none;
+  stroke: rgba($slate, 0.7);
+  stroke-dasharray: 4 3;
+}
+
+.Diagram-Box {
+  fill: rgba($slate, 0.22);
+  stroke: rgba($slate, 0.7);
+
+  // The one box both flows turn on.
+  &.Accent {
+    fill: rgba($accent2, 0.45);
+    stroke: $blue;
+  }
+}
+
+.Diagram-Line {
+  fill: none;
+  stroke: $blue;
+  stroke-width: 1.5;
+
+  // The result travelling back up, held apart from the request by colour so the
+  // two directions don't read as one loop.
+  &.Return {
+    stroke: $teal;
+  }
+}
+
+// Markers sit in defs, not under the path that references them, so they can't
+// inherit its stroke — each colour is set here to match its line.
+.Diagram-Head {
+  fill: $blue;
+
+  &.Return {
+    fill: $teal;
+  }
+}
+
+// Sizes below are viewBox units, not screen pixels — the svg scales to its
+// column, so they stay literal rather than coming from the type scale.
+.Diagram-Title {
+  fill: $blue-grey;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.Diagram-Text {
+  fill: $light-lavender;
+  font-size: 12px;
+  text-anchor: middle;
+
+  &.Small {
+    fill: $lavender;
+    font-size: 10px;
+  }
+
+  // Labels sitting beside an arrow rather than centred in a box.
+  &.Anchor {
+    text-anchor: start;
+  }
+
+  &.End {
+    text-anchor: end;
+  }
+}

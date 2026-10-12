@@ -1,0 +1,7 @@
+Newer versions of React do not allow `findDOMNode`, which has traditionally been used by `CSSTransition`. The newer method is to use refs and the `nodeRef` prop in `CSSTransition` instead.
+
+`const refs = useMemo(() => items.map(() => ({ current: null })), [items]);` creates these null refs, one `{ current: null }` for each item. When the item wrapper is created the corresponding ref is filled at its proper index and passes the object to `CSSTransition` as `nodeRef`. `useMemo` is used rather than a `useRef` per item because hooks cannot be called inside loops, which counts `useRef` out — and a ref does not have to come from `useRef`, it is just an object with a `current` property.
+
+An alternative would be to use a function that creates the wrapper divs based on the number of items received, each holding their own ref that is not part of any `refs` array. Either one avoids the issue of anything reading `ref.current` during render, which would return `null`.
+
+These both fix the issues with the pattern of using a single `CSSTransition` on a wrapper that holds a number of items. In that pattern the wrapper receives the `CSSTransition` classes and its items transition based on these class changes. The issue is that this seriously limits what `CSSTransition` can do — using the `unmountOnExit` prop, for example — and it needs much more code while being able to do less, since the wrapper will technically have incorrect `CSSTransition` classes.

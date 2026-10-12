@@ -1,0 +1,14 @@
+@use '@sass/variables' as *;
+
+.ExternalLink {
+  font-size: $font-body;
+
+  // Image credits sit under a picture as a caption, so they drop to label size.
+  &.Image {
+    font-size: $font-label;
+  }
+}
+
+a.ExternalLink:hover {
+  text-decoration: underline;
+}

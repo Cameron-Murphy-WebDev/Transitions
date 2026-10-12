@@ -1,0 +1,100 @@
+@use '@sass/variables' as *;
+
+$transitionTime: 0.3s;
+
+.Anchor-Demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20rem;
+  a:hover {
+    color: $white;
+  }
+
+  .Anchor-Container {
+    display: flex;
+    justify-content: center;
+    anchor-name: --Anchor-Container;
+  }
+
+  // #region anchor
+  .Anchor {
+    &-Middle {
+      anchor-name: --Anchor-Middle;
+      width: fit-content;
+      height: fit-content;
+      padding: 0.5rem;
+    }
+    width: fit-content;
+  }
+
+  .Arrow-Button {
+    position: absolute;
+    position-anchor: --Anchor-Middle;
+
+    &:hover {
+      path {
+        fill: $accentg;
+      }
+    }
+  }
+  // #endregion anchor
+
+  .Arrow,
+  .Arrow-Rotate {
+    width: 2rem;
+    height: 2rem;
+
+    path {
+      fill: $cyan;
+      transition: fill $transitionTime ease;
+    }
+  }
+
+  .Arrow {
+    & > div {
+      height: fit-content;
+      width: fit-content;
+    }
+
+    &.Right {
+      transform: rotate(90deg);
+    }
+    &.Bottom {
+      transform: rotate(180deg);
+    }
+    &.Left {
+      transform: rotate(270deg);
+    }
+  }
+
+  // #region anchor
+  .Target {
+    border: 2px solid $light-lavender;
+    position: absolute;
+    position-anchor: --Anchor-Middle;
+    transition:
+      top $transitionTime,
+      right $transitionTime,
+      bottom $transitionTime,
+      left $transitionTime;
+
+    &.Top {
+      margin-bottom: 3rem;
+      position-area: top;
+    }
+    &.Right {
+      margin-left: 3rem;
+      position-area: right;
+    }
+    &.Bottom {
+      margin-top: 3rem;
+      position-area: bottom;
+    }
+    &.Left {
+      margin-right: 3rem;
+      position-area: left;
+    }
+  }
+  // #endregion anchor
+}

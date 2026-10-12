@@ -1,0 +1,51 @@
+@use '@sass/variables' as *;
+
+// Styles the headings and lists a full doc brings, which short demo notes
+// don't use.
+.DocNotes {
+  h3,
+  h4,
+  h5 {
+    margin: 0.5rem 0 0;
+  }
+
+  ul {
+    display: flex;
+    margin: 0;
+    padding-left: 1.25rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  li {
+    font-size: $font-body;
+    line-height: $line-body;
+  }
+}
+
+// For notes written as running paragraphs rather than short bullets — a size
+// up from body copy so a full page of prose stays comfortable to read.
+.LongForm {
+  p,
+  li {
+    font-size: $font-reading;
+  }
+
+  p {
+    text-indent: 2em;
+  }
+}
+
+// For a note sitting beside a CodeSample: DemoPage aligns items to the top, so
+// this stretches the note to the row's height — the code panel's, while the
+// code is the taller of the two. Margin dropped so the bottoms line up.
+.MatchHeight {
+  margin-bottom: 0;
+  align-self: stretch;
+}
+
+.DocImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}

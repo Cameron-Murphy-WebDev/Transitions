@@ -1,6 +1,6 @@
 // The single entry point for tokens. Stylesheets write
 //
-//   @use '../../sass/variables' as *;
+//   @use '@sass/variables' as *;
 //
 // and get colours and type together, rather than tracking which file holds
 // which. @forward re-exports the members without emitting anything, so adding a

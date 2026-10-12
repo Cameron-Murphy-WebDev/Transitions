@@ -1,0 +1,93 @@
+@use '@sass/variables' as *;
+
+// Only what this demo decides. The page grid lives in DemoPage, the slide card
+// in DemoSlide — what's left is how the carousel and its detached navigation
+// look here.
+.CarouselDecoupled {
+  .Carousel-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .Carousel {
+      width: 100%;
+      background-color: $accent1;
+
+      .Carousel-Item {
+        display: flex;
+        justify-content: center;
+        color: $black;
+        border: none;
+      }
+    }
+  }
+
+  // Sized and centred on its own rather than by the carousel, since it isn't
+  // inside one — the whole point of this demo.
+  .Navigation {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+    margin: 0 auto;
+
+    .Navigation-Bar {
+      display: flex;
+      width: 100px;
+      justify-content: space-evenly;
+
+      &:hover {
+        button:hover {
+          background-color: $cyan;
+        }
+      }
+
+      // While the bar is hovered the pointer marks the target, so the active
+      // dot stands down rather than competing with it.
+      &:not(:hover) {
+        .Active {
+          background-color: $cyan;
+        }
+      }
+
+      button {
+        width: 1.75rem;
+        border-radius: 8px;
+        background-color: $accent2;
+      }
+    }
+
+    .Button-Left,
+    .Button-Right {
+      width: 45px;
+      border-radius: 8px;
+      background-color: $accent2;
+      color: $lavender;
+
+      &:hover {
+        background-color: $cyan;
+      }
+
+      svg {
+        width: 1rem;
+        height: 10px;
+      }
+    }
+
+    .Button-Left {
+      order: -1;
+
+      svg {
+        transform: rotate(-90deg);
+      }
+    }
+
+    .Button-Right {
+      order: 1;
+
+      svg {
+        transform: rotate(90deg);
+      }
+    }
+  }
+}

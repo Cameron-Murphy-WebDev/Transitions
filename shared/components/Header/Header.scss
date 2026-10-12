@@ -1,16 +1,24 @@
-@use '../../../sass/variables' as *;
+@use '@sass/variables' as *;
 
 .Header {
   display: flex;
+  position: fixed;
   align-items: center;
   gap: 1.5rem;
   padding: 1rem 1.5rem;
-  background-color: $backgroundLight;
+  animation: header-bg linear both;
+  animation-timeline: scroll(root block);
+  animation-range: 0 80px;
+  background-color: transparent;
+  width: 100%;
 
   .Header-Logo {
-    color: $near-black;
+    color: $light-lavender;
     font-size: $font-logo;
     font-weight: $weight-bold;
+    animation: logo-color linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 80px;
   }
 
   .Header-Nav {
@@ -25,5 +33,24 @@
         color: $orange;
       }
     }
+  }
+}
+
+@keyframes header-bg {
+  from {
+    background: transparent;
+  }
+  to {
+    background: $accent6g;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  }
+}
+
+@keyframes logo-color {
+  from {
+    color: $light-lavender;
+  }
+  to {
+    color: $near-black;
   }
 }

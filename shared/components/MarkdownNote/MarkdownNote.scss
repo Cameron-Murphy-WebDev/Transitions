@@ -1,0 +1,35 @@
+@use '@sass/variables' as *;
+
+// Borrows the code panel's border and padding so notes and code samples read
+// as a pair rather than as unrelated blocks.
+.MarkdownNote {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+  padding: 0.875rem;
+  border: 1px solid rgba($slate, 0.4);
+  border-radius: 8px;
+  gap: 0.75rem;
+  color: $font-light;
+
+  p {
+    margin: 0;
+    font-size: $font-body;
+    line-height: $line-body;
+  }
+
+  // Undo the global `li { display: flex }` — in prose, flex splits every text
+  // run, `code` and `strong` into separate items.
+  li {
+    display: list-item;
+  }
+
+  // Highlight for inline code: tinted and washed so identifiers separate from
+  // the prose.
+  code {
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    background-color: rgba($slate, 0.35);
+    color: $light-lavender;
+  }
+}

@@ -6,6 +6,7 @@ $transitionTime: 0.3s;
 body {
   background-color: $backgroundDark;
   color: $font-light;
+  margin: 0;
 }
 
 body,
@@ -29,7 +30,10 @@ main {
 }
 
 button {
+  background-color: transparent;
   border: none;
+  color: inherit;
+  font-family: inherit;
   cursor: pointer;
   transition: background-color $transitionTime;
 }
@@ -40,4 +44,10 @@ h3,
 h4,
 p {
   transition: color $transitionTime;
+}
+
+#main_content {
+  > div {
+    margin-top: 4rem;
+  }
 }

@@ -1,0 +1,135 @@
+@use '@sass/variables' as *;
+
+$transitionTime: 8s;
+
+@property --mid-stop {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 75%;
+}
+
+.TransitionDemo {
+  .Transition-Page {
+    display: flex;
+    justify-content: center;
+    height: 20rem;
+    align-items: center;
+  }
+
+  .Inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+
+    .Star {
+      align-self: flex-end;
+      --mid-stop: 75%;
+      width: 6rem;
+      height: 6rem;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(227, 224, 57, 1) 0%,
+        rgba(209, 25, 25, 1) var(--mid-stop),
+        rgba(237, 221, 83, 1) 100%
+      );
+      filter: saturate(80%);
+      transition: --mid-stop $transitionTime ease;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: -1rem;
+        border-radius: inherit;
+        background: inherit;
+        filter: blur(1.5rem);
+        z-index: -1;
+      }
+      &.Transform {
+        --mid-stop: 100%;
+      }
+    }
+  }
+
+  .Outer {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 1rem 0.25rem rgba($backgroundDark, 0.4);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+  }
+
+  .Blue {
+    height: 2.5rem;
+    width: 2.5rem;
+
+    background-image:
+      radial-gradient(
+        70% 60% at 28% 24%,
+        rgba($light-blue, 0.9) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        60% 75% at 78% 38%,
+        rgba($magenta, 0.55) 0%,
+        transparent 72%
+      ),
+      radial-gradient(85% 65% at 62% 86%, rgba($teal, 0.6) 0%, transparent 68%),
+      radial-gradient(
+        50% 60% at 14% 82%,
+        rgba($blue, 0.75) 0%,
+        transparent 74%
+      ),
+      linear-gradient(150deg, $steel-blue 0%, $accent2 55%, $midnight 100%);
+
+    transition: offset-distance $transitionTime;
+    offset-path: ellipse(15rem 7rem at center);
+    offset-distance: 75%;
+
+    &.Transform {
+      offset-path: ellipse(15rem 7rem at center);
+      offset-distance: 250%;
+    }
+  }
+
+  .Red {
+    height: 1rem;
+    width: 1rem;
+
+    background-color: $accentrd;
+    background-image:
+      radial-gradient(
+        75% 65% at 30% 26%,
+        rgba($yellow, 0.85) 0%,
+        transparent 68%
+      ),
+      radial-gradient(
+        65% 80% at 80% 42%,
+        rgba($orange, 0.7) 0%,
+        transparent 70%
+      ),
+      radial-gradient(70% 60% at 52% 88%, rgba($red, 0.8) 0%, transparent 72%),
+      linear-gradient(150deg, $orange 0%, $accentrl 50%, $accentrd 100%);
+
+    transition: offset-distance $transitionTime;
+    offset-path: ellipse(6rem 7rem at center bottom);
+    offset-distance: 0%;
+
+    &.Transform {
+      offset-path: ellipse(6rem 7rem at center bottom);
+      offset-distance: 300%;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+@use '@sass/variables' as *;
+
+.ColorPreview {
+  padding: 1.5rem;
+
+  .ColorPreview-GroupTitle {
+    margin: 2rem 0 0.75rem;
+    color: $blue-grey;
+    font-size: $font-lead;
+    font-weight: $weight-normal;
+  }
+
+  // Scratch box for in-progress SVG: shown large to judge the shape, at icon
+  // size to check it survives the shrink, and once on a light ground since the
+  // page itself is dark.
+  .ColorPreview-Svg {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba($slate, 0.4);
+    border-radius: 8px;
+    color: $font-light;
+
+    .Large {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+
+    .Small {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .ColorPreview-SvgOnLight {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 6px;
+    background-color: $light-lavender;
+    color: $near-black;
+  }
+
+  .ColorPreview-Grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 0.75rem;
+  }
+
+  // The colour is the box: it comes in as an inline background from the parsed
+  // palette, and the padding insets the labels sitting on top of it.
+  .ColorPreview-Swatch {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.625rem;
+    border: 1px solid rgba($slate, 0.4);
+    border-radius: 8px;
+  }
+
+  // One class per entry in TEXT_TONES — the label names the variable colouring
+  // it, so the two have to stay in step.
+  .ColorPreview-Name {
+    overflow-wrap: anywhere;
+    font-size: $font-code;
+
+    &.Light {
+      color: $font-light;
+    }
+
+    &.Dark {
+      color: $near-black;
+    }
+
+    &.Lavender {
+      color: $light-lavender;
+    }
+
+    &.White {
+      color: $white;
+    }
+  }
+}

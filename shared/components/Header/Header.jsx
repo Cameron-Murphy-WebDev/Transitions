@@ -11,7 +11,7 @@ export default function Header({ className = '' }) {
   return (
     <header className={`Header ${className}`}>
       <a className='Header-Logo' href='/'>
-        Demos
+        Demo Sandbox
       </a>
       <nav className='Header-Nav'>
         {links.map((link) => (

@@ -4,33 +4,37 @@ import Wrapper from '@shared/components/Wrapper';
 import DemoPage from '@shared/components/DemoPage';
 import './sass/home.scss';
 
+// Section heading for each group folder in vite.config.js. The page list itself
+// comes from that config, so a new page folder shows up here on its own.
+const GROUP_LABELS = {
+  'demos/transitions': 'Transitions',
+  'demos/css': 'CSS',
+  docs: 'Docs',
+  tools: 'Tools',
+};
+
+const groups = Object.entries(GROUP_LABELS).map(([group, label]) => ({
+  label,
+  pages: __PAGES__.filter((page) => page.group === group),
+}));
+
 function Home() {
   return (
     <DemoPage className='Home'>
-      <h2 className='Full'>Transitions</h2>
-      <ul className='Full'>
-        <li>
-          <a href='/demos/carouselDemo/'>
-            <h2 className='LinkText'>Carousel</h2>
-          </a>
-        </li>
-        <li>
-          <a href='/demos/carouselDecoupled/'>
-            <h2 className='LinkText'>Carousel Nav Decoupled</h2>
-          </a>
-        </li>
-      </ul>
-      <h2 className='Full'>CSS</h2>
-      <ul className='Full'>
-        <li>
-          <a href='/css/anchor/'>
-            <h2 className='LinkText'>Anchor</h2>
-          </a>
-        </li>
-      </ul>
-      <a href='/colors/'>
-        <h2 className='LinkText'>Color preview</h2>
-      </a>
+      {groups.map(({ label, pages }) => (
+        <React.Fragment key={label}>
+          <h2 className='Full'>{label}</h2>
+          <ul className='Full'>
+            {pages.map(({ path, name }) => (
+              <li key={path}>
+                <a href={`/${path}/`}>
+                  <h2 className='LinkText'>{name}</h2>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </React.Fragment>
+      ))}
     </DemoPage>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '@sass/baseStyles.scss';
 import Header from '../Header';
 
 // Owns the chrome every page shares. Page content arrives as children.

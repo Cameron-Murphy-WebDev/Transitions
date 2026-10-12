@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@sass/*": ["sass/*"]
     },
     "jsx": "react-jsx",
     "target": "esnext",
